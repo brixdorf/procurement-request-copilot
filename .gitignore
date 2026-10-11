@@ -1,0 +1,16 @@
+# local environment and secrets
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# local-only working material (not part of the submission)
+FDE_Assessment_3_Starter_Pack/
+FDE_Assessment_Document.pdf
+fde_sprint_notes/
+
+# scratch output
+evals/results_*.csv
+*.log
