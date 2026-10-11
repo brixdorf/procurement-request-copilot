@@ -1,0 +1,3092 @@
+[
+  {
+    "case_id": "PUB-01",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Manager for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Manager"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Add-on from SignFlow (E-signature); annual cost $800 for 3 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "REQ-1001"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $800 is within budget ($28,200 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $800 falls in the 'up to $1,000' band: minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.22489999537356198,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.025100016500800848,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.03360002301633358,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.005600013537332416,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 1393.259600008605,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.20859998767264187,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "PUB-02",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Finance, Security, Legal for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security",
+      "Legal"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "BrandBoard Enterprise from BrandBoard (Design & Creative); annual cost $12,000 for 25 users; data access 'internal_marketing'; requester Sarah Lee (E001), Marketing",
+        "reference": "REQ-1002"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $12,000 is within budget ($3,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "PixelCraft Pro (Design & Creative, PixelCraft) is already Approved: 65 seats, scope Company-wide, $32,000/yr; match on same category; covers the requester's department",
+        "reference": "SW001"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CreativeSuite (Design & Creative, CreativeSuite Labs) is already Approved: 40 seats, scope Marketing, $27,000/yr; match on same category; covers the requester's department",
+        "reference": "SW002"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status New, security Pending, legal terms Draft",
+        "reference": "V011"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status not_completed, last review none, processes personal data True, stores data outside region False; note: Vendor onboarding incomplete.",
+        "reference": "GET /vendor-risk/BrandBoard"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security assessment for BrandBoard is not completed (service status 'not_completed', no current review date)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $12,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is missing or not completed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: new vendor with annual spend of $12,000 (threshold $10,000); legal terms are not approved/standard (registry status 'Draft')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.0653000024612993,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.018499995348975062,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.03170000854879618,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.005999987479299307,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 3.158599982270971,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.20489998860284686,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "PUB-03",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Finance, Security for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "CodeMate Teams Expansion from CodeMate (Developer AI); annual cost $18,000 for 30 users; data access 'source_code'; requester Arjun Mehta (E002), Engineering",
+        "reference": "REQ-1003"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Engineering available software budget is $26,000; request of $18,000 is within budget ($8,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate (Developer AI, CodeMate) is already Approved: 120 seats, scope Engineering, $90,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW008"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase CodeMate on 2026-04-18: $90,000/yr, Approved (120 seats)",
+        "reference": "PO-2440"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V008"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status approved, last review 2026-08-20, processes personal data False, stores data outside region False; note: Approved for source-code use when repository controls are enabled.",
+        "reference": "GET /vendor-risk/CodeMate"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for CodeMate is current: reviewed 2026-08-20 (41 days before 2026-09-30), risk level medium",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $18,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: source code access",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.041399995097890496,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.010400020983070135,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.027300004148855805,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0052000104915350676,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 25.656100013293326,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.2080000122077763,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "DAT-04",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Security, Privacy, Legal for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "NeuralDesk Support Assistant from NeuralDesk (General AI); annual cost $6,000 for 20 users; data access 'customer_pii'; requester Mia Thompson (E005), Customer Success",
+        "reference": "REQ-1004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Customer Success available software budget is $7,000; request of $6,000 is within budget ($1,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business (General AI, NeuralDesk) is already Approved - limited use: 150 seats, scope Company-wide, $60,000/yr; match on same category, same vendor; covers the requester's department",
+        "reference": "SW009"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase NeuralDesk Business on 2026-07-29: $60,000/yr, Approved (Limited-use policy applies)",
+        "reference": "PO-2531"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V009"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status approved, last review 2026-03-02, processes personal data True, stores data outside region True; note: Sensitive-data use requires Security and Privacy review.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for NeuralDesk is current: reviewed 2026-03-02 (212 days before 2026-09-30), risk level medium",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $6,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: customer PII",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Privacy review required: employee or customer PII; sensitive data may be stored outside the operating region",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: material data-processing / cross-region issue",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Urgency 'high' noted; it does not change policy requirements or approvals",
+        "reference": "REQ-1004.urgency"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.04010001430287957,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.010499992640689015,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.027000001864507794,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0048999791033566,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 26.288399996701628,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.3158000181429088,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "PUB-04",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for budget exception review. The annual cost exceeds the department's available budget and needs a Finance exception review.",
+    "next_step": "Send the request to Finance for a budget exception review and route the evidence package to Department Head, Procurement, Finance, Security, Privacy, Legal for the other required reviews.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "ProspectPilot from GrowthForge (Sales Intelligence); annual cost $22,000 for 35 users; data access 'customer_pii'; requester Elena Garcia (E003), Sales",
+        "reference": "REQ-1005"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Sales available software budget is $18,000; request of $22,000 exceeds it by $4,000. Finance budget exception review required",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "No existing catalog product matches by name, vendor or category",
+        "reference": "data/software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status New, security Pending, legal terms Unknown",
+        "reference": "V012"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk high, review status not_completed, last review none, processes personal data True, stores data outside region True; note: New vendor; full security assessment required.",
+        "reference": "GET /vendor-risk/GrowthForge"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security assessment for GrowthForge is not completed (service status 'not_completed', no current review date)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $22,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: customer PII; vendor security assessment is missing or not completed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Privacy review required: employee or customer PII; sensitive data may be stored outside the operating region",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: new vendor with annual spend of $22,000 (threshold $10,000); legal terms are not approved/standard (registry status 'Unknown'); material data-processing / cross-region issue",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.08410000009462237,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.020599982235580683,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.04089999129064381,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.009100011084228754,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 14.60870000300929,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.32890000147745013,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=BUDGET_EXCEPTION_REVIEW",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "PUB-05",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. Required information is missing, so no approval path can be set yet.",
+    "next_step": "Return the request to the requester to provide: Annual cost or a reasonable annual estimate; Number of users/licenses; Business purpose; Intended data-access level. The approval chain cannot be finalised until these are supplied; re-run the review afterwards.",
+    "required_approvals": [],
+    "risk_flags": [
+      "missing_information",
+      "prompt_injection_detected",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Annual cost or a reasonable annual estimate (annual_cost_usd is missing or invalid)",
+      "Number of users/licenses (user_count is missing or invalid)",
+      "Business purpose (justification is missing or contains no substantive use case)",
+      "Intended data-access level (data_access_level is unknown)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "NeuralDesk Team Workspace from NeuralDesk (General AI); annual cost not provided for unspecified users; data access 'unknown'; requester Sarah Lee (E001), Marketing",
+        "reference": "REQ-1006"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: annual cost not provided",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business (General AI, NeuralDesk) is already Approved - limited use: 150 seats, scope Company-wide, $60,000/yr; match on same category, same vendor; covers the requester's department",
+        "reference": "SW009"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase NeuralDesk Business on 2026-07-29: $60,000/yr, Approved (Limited-use policy applies)",
+        "reference": "PO-2531"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V009"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status approved, last review 2026-03-02, processes personal data True, stores data outside region True; note: Sensitive-data use requires Security and Privacy review.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for NeuralDesk is current: reviewed 2026-03-02 (212 days before 2026-09-30), risk level medium",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "NeuralDesk stores data outside the operating region and the requested data class is unknown; privacy exposure cannot be ruled out until data access is stated",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "4 required item(s) missing or invalid: Annual cost or a reasonable annual estimate; Number of users/licenses; Business purpose; Intended data-access level",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Embedded instruction detected in untrusted text (request.business_justification); treated as data and ignored",
+        "reference": "Policy section 9"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Urgency 'urgent' noted; it does not change policy requirements or approvals",
+        "reference": "REQ-1006.urgency"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.06360001862049103,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, reason)",
+        "duration_ms": 0.015199999324977398,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.05269999383017421,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.008700008038431406,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 26.787799986777827,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.4988999862689525,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "DAT-07",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Hold for manual review (vendor evidence unavailable or conflicting). Vendor security evidence is unavailable or conflicting, so manual review is needed before anything else.",
+    "next_step": "Send the evidence package to Security for manual verification of the vendor's status before any approval is considered; the other required reviewers (Department Head, Procurement, Finance, Security) wait for that result.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "vendor_review_expired",
+      "conflicting_vendor_evidence"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignalWatch Advanced from SignalWatch (Observability); annual cost $24,000 for 25 users; data access 'production_telemetry'; requester Arjun Mehta (E002), Engineering",
+        "reference": "REQ-1007"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Engineering available software budget is $26,000; request of $24,000 is within budget ($2,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignalWatch (Observability, SignalWatch) is already Approved: 80 seats, scope Engineering, $80,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW005"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignalWatch on 2026-03-01: $80,000/yr, Approved (Annual renewal)",
+        "reference": "PO-2418"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Conflicting vendor evidence: Registry lists security status 'Approved' but the vendor-risk service reports 'expired'",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V005"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status expired, last review 2025-07-01, processes personal data False, stores data outside region False; note: Reassessment required before expanded production access.",
+        "reference": "GET /vendor-risk/SignalWatch"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignalWatch dated 2025-07-01 is 456 days old at 2026-09-30; the 365-day validity has lapsed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $24,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: production or cloud-account integration; vendor security assessment is expired; internal registry and vendor-risk service disagree",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Urgency 'high' noted; it does not change policy requirements or approvals",
+        "reference": "REQ-1007.urgency"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.14769998961128294,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.03980001201853156,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.09259997750632465,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.01479999627918005,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 28.06309997686185,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.19869999960064888,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=HOLD_FOR_MANUAL_REVIEW",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "DAT-08",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "TaskFlow Pro from TaskFlow (Project Management); annual cost $8,000 for 15 users; data access 'internal_marketing'; requester Sarah Lee (E001), Marketing",
+        "reference": "REQ-1008"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $8,000 is within budget ($7,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "TaskFlow (Project Management, TaskFlow) is already Approved: 180 seats, scope Company-wide, $36,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW003"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase TaskFlow on 2026-06-22: $36,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2501"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V003"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-03, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/TaskFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for TaskFlow is current: reviewed 2026-06-03 (119 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $8,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.06210000719875097,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.011299998732283711,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.02819998189806938,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0045000051613897085,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 14.868999976897612,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.15619999612681568,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "PUB-06",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Hold for manual review (vendor evidence unavailable or conflicting). Vendor security evidence is unavailable or conflicting, so manual review is needed before anything else.",
+    "next_step": "Send the evidence package to Security for manual verification of the vendor's status before any approval is considered; the other required reviewers (Department Head, Procurement, Finance, Security, Legal) wait for that result.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security",
+      "Legal"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "NimbusAI Contract Reviewer from NimbusAI (Legal AI); annual cost $15,000 for 8 users; data access 'confidential_documents'; requester Noah Williams (E004), Finance",
+        "reference": "REQ-1009"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $15,000 is within budget ($14,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "No existing catalog product matches by name, vendor or category",
+        "reference": "data/software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status New, security Unknown, legal terms Unknown",
+        "reference": "V013"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security status for NimbusAI could not be verified: the vendor-risk service was unavailable (Upstream vendor assessment provider is temporarily unavailable.). No favourable status was assumed; routed to manual review",
+        "reference": "Policy section 10"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $15,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: source code access; confidential documents; vendor security status could not be verified (the vendor-risk service was unavailable)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: new vendor with annual spend of $15,000 (threshold $10,000); legal terms are not approved/standard (registry status 'Unknown')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.04639997496269643,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.011399999493733048,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.022100022761151195,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0053000112529844046,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "error: vendor-risk lookup failed: Upstream vendor assessment provider is temporarily unavailable.",
+        "duration_ms": 968.7775000056718,
+        "ok": false
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.23129998589865863,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=HOLD_FOR_MANUAL_REVIEW",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "DAT-10",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Manager for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Manager"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Training Pack from SignFlow (Professional Services); annual cost $950 for 12 users; data access 'none'; requester Noah Williams (E004), Finance",
+        "reference": "REQ-1010"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $950 is within budget ($28,050 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $950 falls in the 'up to $1,000' band: minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.052799994591623545,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.016200006939470768,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.04080001963302493,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.008000002708286047,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 3.8181999989319593,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.20349997794255614,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-01",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Manager for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Manager"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Signing Credits from SignFlow (E-signature); annual cost $1,000 for 4 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-01"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $1,000 is within budget ($28,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $1,000 falls in the 'up to $1,000' band: minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.04859999171458185,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.014599994756281376,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.039300008211284876,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.006100017344579101,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 25.217400019755587,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.24339999072253704,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-02",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Signing Credits from SignFlow (E-signature); annual cost $1,000.01 for 4 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-02"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $1,000.01 is within budget ($27,999.99 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $1,000.01 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.06049999501556158,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.01889999839477241,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.044599990360438824,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.008899980457499623,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 15.850700001465157,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.2710999979171902,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-03",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Security, Legal for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "BrandBoard Starter from BrandBoard (Design & Creative); annual cost $10,000 for 10 users; data access 'internal_marketing'; requester Sarah Lee (E001), Marketing",
+        "reference": "SYN-03"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $10,000 is within budget ($5,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "PixelCraft Pro (Design & Creative, PixelCraft) is already Approved: 65 seats, scope Company-wide, $32,000/yr; match on same category; covers the requester's department",
+        "reference": "SW001"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CreativeSuite (Design & Creative, CreativeSuite Labs) is already Approved: 40 seats, scope Marketing, $27,000/yr; match on same category; covers the requester's department",
+        "reference": "SW002"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status New, security Pending, legal terms Draft",
+        "reference": "V011"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status not_completed, last review none, processes personal data True, stores data outside region False; note: Vendor onboarding incomplete.",
+        "reference": "GET /vendor-risk/BrandBoard"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security assessment for BrandBoard is not completed (service status 'not_completed', no current review date)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $10,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is missing or not completed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: new vendor with annual spend of $10,000 (threshold $10,000); legal terms are not approved/standard (registry status 'Draft')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.05750000127591193,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.015199999324977398,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.03889997606165707,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.006399990525096655,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 21.434800000861287,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.370699999621138,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-04",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement, Finance for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $25,000 for 12 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-04"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $25,000 is within budget ($4,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-05-10, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2026-05-10 (143 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $25,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.10109998402185738,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.024600012693554163,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.08550001075491309,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.01170000177808106,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 14.723999978741631,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.28909998945891857,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-05",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement, Finance, CFO for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "CFO"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $25,001 for 12 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-05"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $25,001 is within budget ($3,999 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-05-10, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2026-05-10 (143 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $25,001 falls in the 'above $25,000' band: minimum approvals Department Head + Finance + CFO + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.0720999960321933,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.01920000067912042,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.047999987145885825,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.008200004231184721,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 26.022300007753074,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.1638999965507537,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-06",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $5,000 for 6 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-06"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $5,000 is within budget ($24,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2025-09-30, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2025-09-30 (365 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $5,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.042100000428035855,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.01170000177808106,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.02649999805726111,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0045000051613897085,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.03250001464039087,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.11860000086016953,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-07",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Security for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "vendor_review_expired"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $5,000 for 6 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-07"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $5,000 is within budget ($24,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2025-09-29, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop dated 2025-09-29 is 366 days old at 2026-09-30; the 365-day validity has lapsed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $5,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is expired",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.03689998993650079,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.009100011084228754,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.02340000355616212,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0041000021155923605,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.038799975300207734,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.12049998622387648,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-08",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Security for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security"
+    ],
+    "risk_flags": [
+      "prompt_injection_detected",
+      "existing_tool_overlap",
+      "security_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Workflow Pack from SignFlow (E-signature); annual cost $3,000 for 10 users; data access 'confidential_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-08"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $3,000 is within budget ($26,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: [redacted: embedded instruction in vendor text]",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Embedded instruction detected in untrusted text (vendor_risk.notes); treated as data and ignored",
+        "reference": "Policy section 9"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $3,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: source code access; confidential documents",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.03709999145939946,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.008100003469735384,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.02519998815841973,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0040000013541430235,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.020299979951232672,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.12360000982880592,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-09",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Hold for manual review (vendor evidence unavailable or conflicting). Vendor security evidence is unavailable or conflicting, so manual review is needed before anything else.",
+    "next_step": "Send the evidence package to Security for manual verification of the vendor's status before any approval is considered; the other required reviewers (Department Head, Procurement, Security, Legal) wait for that result.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "ZenPlan from ZenPlan (Planning); annual cost $4,000 for 6 users; data access 'none'; requester Sarah Lee (E001), Marketing",
+        "reference": "SYN-09"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $4,000 is within budget ($11,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "No existing catalog product matches by name, vendor or category",
+        "reference": "data/software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "ZenPlan is not in the internal vendor registry; treated as a new vendor",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security status for ZenPlan could not be verified: the vendor-risk service has no record for this vendor (No vendor-risk record for 'ZenPlan'). No favourable status was assumed; routed to manual review",
+        "reference": "Policy section 10"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $4,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security status could not be verified (the vendor-risk service has no record for this vendor)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: legal terms are not approved/standard (vendor not in registry)",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.03250001464039087,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.008000002708286047,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.01759998849593103,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, vendor_name)",
+        "duration_ms": 0.0029999937396496534,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "error: vendor-risk lookup failed: No vendor-risk record for 'ZenPlan'",
+        "duration_ms": 0.017200014553964138,
+        "ok": false
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.07860001642256975,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=HOLD_FOR_MANUAL_REVIEW",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-10",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. Required information is missing, so no approval path can be set yet.",
+    "next_step": "Return the request to the requester to provide: Requester identity and department. The approval chain cannot be finalised until these are supplied; re-run the review afterwards.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "missing_information",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Requester identity and department (requester_id not found in the employee directory)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Add-on from DocSpace (Knowledge Management); annual cost $2,000 for 10 users; data access 'internal_documents'; requester unknown requester 'E999'",
+        "reference": "SYN-10"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: department budget record not found",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "1 required item(s) missing or invalid: Requester identity and department",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $2,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.028600014047697186,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, reason)",
+        "duration_ms": 0.006200018106028438,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.022599997464567423,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0039000005926936865,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 14.264299999922514,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.15849998453631997,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-11",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "HelpDeskly Analytics Add-on from HelpDeskly (Customer Support Analytics); annual cost $7,000 for 20 users; data access 'internal_documents'; requester Mia Thompson (E005), Customer Success",
+        "reference": "SYN-11"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Customer Success available software budget is $7,000; request of $7,000 is within budget ($0 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "HelpDeskly (Customer Support, HelpDeskly) is already Approved: 75 seats, scope Customer Success, $46,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW007"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase HelpDeskly on 2026-05-02: $46,000/yr, Approved (75 seats)",
+        "reference": "PO-2457"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V007"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-03-15, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/HelpDeskly"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for HelpDeskly is current: reviewed 2026-03-15 (199 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $7,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.043199979700148106,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.013199984095990658,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.029799994081258774,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0045000051613897085,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 15.74050000635907,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.28830001247115433,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-12",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. No additional review is triggered; the standard approval chain applies.",
+    "next_step": "Route to Department Head, Procurement for the standard approval chain; no additional review was triggered.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "prompt_injection_detected"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Automations from DocSpace (Workflow Automation); annual cost $6,000 for 12 users; data access 'internal_documents'; requester Mia Thompson (E005), Customer Success",
+        "reference": "SYN-12"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Customer Success available software budget is $7,000; request of $6,000 is within budget ($1,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Embedded instruction detected in untrusted text (request.business_justification); treated as data and ignored",
+        "reference": "Policy section 9"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $6,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Urgency 'high' noted; it does not change policy requirements or approvals",
+        "reference": "SYN-12.urgency"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.08830000297166407,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.02549999044276774,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.04430001717992127,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.008700008038431406,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 26.258800004143268,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.35180000122636557,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-13",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. Policy triggers additional human reviews before this request can be approved.",
+    "next_step": "Send the evidence package to Department Head, Procurement, Security, Privacy, Legal for human review before any approval decision.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "NeuralDesk HR Copilot from NeuralDesk (General AI); annual cost $9,000 for 30 users; data access 'employee_pii'; requester Sarah Lee (E001), Marketing",
+        "reference": "SYN-13"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $9,000 is within budget ($6,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business (General AI, NeuralDesk) is already Approved - limited use: 150 seats, scope Company-wide, $60,000/yr; match on same category, same vendor; covers the requester's department",
+        "reference": "SW009"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase NeuralDesk Business on 2026-07-29: $60,000/yr, Approved (Limited-use policy applies)",
+        "reference": "PO-2531"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V009"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status approved, last review 2026-03-02, processes personal data True, stores data outside region True; note: Sensitive-data use requires Security and Privacy review.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for NeuralDesk is current: reviewed 2026-03-02 (212 days before 2026-09-30), risk level medium",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $9,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: employee/personal PII",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Privacy review required: employee or customer PII; sensitive data may be stored outside the operating region",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: material data-processing / cross-region issue",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.07110001752153039,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.017699989257380366,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.04409998655319214,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.007099995855242014,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 21.99280000058934,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.22680000984109938,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-14",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Hold for manual review (vendor evidence unavailable or conflicting). Vendor security evidence is unavailable or conflicting, so manual review is needed before anything else.",
+    "next_step": "Send the evidence package to Security for manual verification of the vendor's status before any approval is considered; the other required reviewers (Department Head, Procurement, Security) wait for that result.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "vendor_risk_unavailable"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "PixelCraft Plugin Pack from PixelCraft (Design & Creative); annual cost $2,500 for 5 users; data access 'internal_marketing'; requester Sarah Lee (E001), Marketing",
+        "reference": "SYN-14"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $2,500 is within budget ($12,500 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "PixelCraft Pro (Design & Creative, PixelCraft) is already Approved: 65 seats, scope Company-wide, $32,000/yr; match on same category, same vendor; covers the requester's department",
+        "reference": "SW001"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CreativeSuite (Design & Creative, CreativeSuite Labs) is already Approved: 40 seats, scope Marketing, $27,000/yr; match on same category; covers the requester's department",
+        "reference": "SW002"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase PixelCraft Pro on 2026-05-19: $32,000/yr, Approved (65 seats)",
+        "reference": "PO-2472"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V001"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security status for PixelCraft could not be verified: the vendor-risk service returned an unusable response (response is missing required fields). No favourable status was assumed; routed to manual review",
+        "reference": "Policy section 10"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $2,500 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security status could not be verified (the vendor-risk service returned an unusable response)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.04369998350739479,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.011899974197149277,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.04350001108832657,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.005900015821680427,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "error: vendor-risk lookup failed: response is missing required fields",
+        "duration_ms": 0.029699993319809437,
+        "ok": false
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.13020000187680125,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=HOLD_FOR_MANUAL_REVIEW",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-15",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. Required information is missing, so no approval path can be set yet.",
+    "next_step": "Return the request to the requester to provide: Annual cost or a reasonable annual estimate. The approval chain cannot be finalised until these are supplied; re-run the review afterwards.",
+    "required_approvals": [],
+    "risk_flags": [
+      "missing_information",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Annual cost or a reasonable annual estimate (annual_cost_usd is missing or invalid)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Add-on from DocSpace (Knowledge Management); annual cost not provided for 10 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-15"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: annual cost not provided",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "1 required item(s) missing or invalid: Annual cost or a reasonable annual estimate",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.04119999357499182,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, reason)",
+        "duration_ms": 0.007599999662488699,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.025200017262250185,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0043000036384910345,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 2.2903999779373407,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.15060001169331372,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-16",
+    "architecture": "rules",
+    "repeat": 1,
+    "recommendation": "Hold for manual review (vendor evidence unavailable or conflicting). Vendor security evidence is unavailable or conflicting, so manual review is needed before anything else.",
+    "next_step": "Send the evidence package to Security for manual verification of the vendor's status before any approval is considered; the other required reviewers (Manager, Security) wait for that result.",
+    "required_approvals": [
+      "Manager",
+      "Security"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "vendor_risk_unavailable"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Seats from SignFlow (E-signature); annual cost $600 for 2 users; data access 'none'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-16"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $600 is within budget ($28,400 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security status for SignFlow could not be verified: the vendor-risk service was unavailable (ReadTimeout after 3 attempts). No favourable status was assumed; routed to manual review",
+        "reference": "Policy section 10"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $600 falls in the 'up to $1,000' band: minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security status could not be verified (the vendor-risk service was unavailable)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Language model unavailable; recommendation and next step come from deterministic rules only",
+        "reference": "fallback_policy"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.03589998232200742,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.010599993402138352,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.0261999957729131,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.0041000021155923605,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "error: vendor-risk lookup failed: ReadTimeout after 3 attempts",
+        "duration_ms": 0.020100007532164454,
+        "ok": false
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.09980000322684646,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=HOLD_FOR_MANUAL_REVIEW",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  }
+]

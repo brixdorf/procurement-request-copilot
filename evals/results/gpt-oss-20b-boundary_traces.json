@@ -1,0 +1,3089 @@
+[
+  {
+    "case_id": "SYN-01",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. The request for SignFlow Signing Credits overlaps with an existing catalog license, so a review of the current license is required before approval.",
+    "next_step": "Verify with the current license holder whether the requested additional credits are necessary or can be accommodated within the existing agreement.",
+    "required_approvals": [
+      "Manager"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Signing Credits from SignFlow (E-signature); annual cost $1,000 for 4 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-01"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $1,000 is within budget ($28,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $1,000 falls in the 'up to $1,000' band: minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "SignFlow: expansion of existing. The catalog already licenses SignFlow with 45 seats, covering the requested 4 seats and the same product family and category. The request is for additional signing credits, which expands the existing license.",
+        "reference": "SW010"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.15089998487383127,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.02649999805726111,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.03489997470751405,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.006199989002197981,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 1366.266800003359,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.1702000154182315,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "372 chars",
+        "duration_ms": 941.9457000039984,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "458 chars",
+        "duration_ms": 716.0221000085585,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-02",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. The request for SignFlow Signing Credits overlaps with an existing catalog product, so it should be reviewed rather than approved.",
+    "next_step": "Verify that the current catalog product fully satisfies the requested capacity and document any gaps before proceeding.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Signing Credits from SignFlow (E-signature); annual cost $1,000.01 for 4 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-02"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $1,000.01 is within budget ($27,999.99 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $1,000.01 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "SignFlow: expansion of existing. The catalog product SignFlow (SW010) already provides e-signature capabilities company-wide with 45 licensed seats. The request for 4 additional signing credits is an expansion of existing capacity rather than a new or distinct need.",
+        "reference": "SW010"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.21539998124353588,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.07259999983943999,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.14360001659952104,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.031899980967864394,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 10.17870000214316,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.7818000158295035,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "396 chars",
+        "duration_ms": 704.2681000020821,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "411 chars",
+        "duration_ms": 920.2521000115667,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-03",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. The request for BrandBoard Starter requires additional security and legal reviews due to missing vendor assessments and non-standard terms.",
+    "next_step": "Obtain a completed vendor security assessment and finalize legal terms to meet the required approvals.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "BrandBoard Starter from BrandBoard (Design & Creative); annual cost $10,000 for 10 users; data access 'internal_marketing'; requester Sarah Lee (E001), Marketing",
+        "reference": "SYN-03"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $10,000 is within budget ($5,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "PixelCraft Pro (Design & Creative, PixelCraft) is already Approved: 65 seats, scope Company-wide, $32,000/yr; match on same category; covers the requester's department",
+        "reference": "SW001"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CreativeSuite (Design & Creative, CreativeSuite Labs) is already Approved: 40 seats, scope Marketing, $27,000/yr; match on same category; covers the requester's department",
+        "reference": "SW002"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status New, security Pending, legal terms Draft",
+        "reference": "V011"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status not_completed, last review none, processes personal data True, stores data outside region False; note: Vendor onboarding incomplete.",
+        "reference": "GET /vendor-risk/BrandBoard"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security assessment for BrandBoard is not completed (service status 'not_completed', no current review date)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $10,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is missing or not completed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: new vendor with annual spend of $10,000 (threshold $10,000); legal terms are not approved/standard (registry status 'Draft')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "PixelCraft Pro: distinct need. PixelCraft Pro is a design and prototyping tool, not a lightweight template tool for social campaigns.",
+        "reference": "SW001"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "CreativeSuite: distinct need. CreativeSuite is a creative production suite, which is likely too comprehensive for the requested lightweight template tool.",
+        "reference": "SW002"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.1262999721802771,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.03689998993650079,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.08549998165108263,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.015900004655122757,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 7.227399997645989,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.388599990401417,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "443 chars",
+        "duration_ms": 737.3248999938369,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "536 chars",
+        "duration_ms": 1296.9800000137184,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-04",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. The requested MetricLoop Finance Add-on is an expansion of an already approved core MetricLoop product, indicating no new solution is needed.",
+    "next_step": "Verify that the existing catalog product fully satisfies the Finance team's requirements and document any specific feature gaps before proceeding.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $25,000 for 12 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-04"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $25,000 is within budget ($4,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-05-10, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2026-05-10 (143 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $25,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: expansion of existing. The catalog contains the core MetricLoop product, which is already approved and company-wide. The requested MetricLoop Finance Add-on is an additional feature specifically for Finance, extending the existing product\u2019s capabilities rather th",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.1309999788645655,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.03819999983534217,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.07509998977184296,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.015900004655122757,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 9.93999998900108,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.4729000211227685,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "441 chars",
+        "duration_ms": 5190.575699991314,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "650 chars",
+        "duration_ms": 4039.7690999961924,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-05",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. The request is for an add-on that expands an already licensed product, so it should be reviewed against the existing catalog rather than approved as a new purchase.",
+    "next_step": "Verify that the current MetricLoop license includes the finance reporting features requested, and if not, document the specific gap before proceeding.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "CFO"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $25,001 for 12 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-05"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $25,001 is within budget ($3,999 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-05-10, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2026-05-10 (143 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $25,001 falls in the 'above $25,000' band: minimum approvals Department Head + Finance + CFO + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: expansion of existing. The request is for a MetricLoop Finance Add-on, which extends the existing MetricLoop product that the company already licenses. The add-on adds finance-specific reporting capabilities to the current company-wide analytics platform, thereby",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.22419999004341662,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.03239998477511108,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.053800002206116915,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.011200027074664831,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 16.732899995986372,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.4737000272143632,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "496 chars",
+        "duration_ms": 6977.355800016085,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "402 chars",
+        "duration_ms": 5750.7071,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-06",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. The request for the MetricLoop Finance Add-on is a distinct need not covered by the existing catalog product, and the vendor\u2019s security status is current with sufficient budget remaining.",
+    "next_step": "Submit the request to the Department Head and Procurement for final approval.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $5,000 for 6 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-06"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $5,000 is within budget ($24,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2025-09-30, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2025-09-30 (365 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $5,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: distinct need. The catalog product MetricLoop is a company-wide analytics/BI solution, while the request is for a specific Finance Add-on for monthly close and variance analysis. The add-on provides finance-specific reporting features that are not covered",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.13260002015158534,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.03740002284757793,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.06960000609979033,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.01479999627918005,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.09280000813305378,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.3816999960690737,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "431 chars",
+        "duration_ms": 4198.35520000197,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "354 chars",
+        "duration_ms": 4915.056800004095,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-07",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. The MetricLoop Finance Add-on requires a security review and vendor assessment renewal, and overlaps an existing approved license, so it must be routed for further reviews.",
+    "next_step": "Initiate a security and vendor compliance review to update the expired assessment and confirm the expansion aligns with the existing license scope.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "vendor_review_expired"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $5,000 for 6 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-07"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $5,000 is within budget ($24,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2025-09-29, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop dated 2025-09-29 is 366 days old at 2026-09-30; the 365-day validity has lapsed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $5,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is expired",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: expansion of existing. The request is for a Finance Add-on from MetricLoop, which is the same vendor and product family as the approved MetricLoop product (SW006). The add-on extends the existing product\u2019s capabilities for the Finance department, indicating an ex",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.2410000015515834,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.06580000626854599,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.13249999028630555,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.026900001103058457,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.14680001186206937,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 1.0059000051114708,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "469 chars",
+        "duration_ms": 5104.14059998584,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "497 chars",
+        "duration_ms": 5733.832300000358,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-10",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. The request lacks essential requester details and may duplicate existing DocSpace capacity, requiring clarification before approval.",
+    "next_step": "Ask the requester to provide their identity, department, and confirm whether the 10 seats are truly new or an expansion of the current 200-seat license.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "missing_information",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Requester identity and department (requester_id not found in the employee directory)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Add-on from DocSpace (Knowledge Management); annual cost $2,000 for 10 users; data access 'internal_documents'; requester unknown requester 'E999'",
+        "reference": "SYN-10"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: department budget record not found",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "1 required item(s) missing or invalid: Requester identity and department",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $2,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "DocSpace: expansion of existing. The catalog lists DocSpace with 200 licensed seats, while the request is for 10 additional seats for the same product. This is an expansion of existing capacity rather than a new or distinct need.",
+        "reference": "SW004"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.2601000014692545,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, reason)",
+        "duration_ms": 0.04640000406652689,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.14210000517778099,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.028600014047697186,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 5.126100004417822,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.36630002432502806,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "360 chars",
+        "duration_ms": 3208.7699999974575,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "495 chars",
+        "duration_ms": 5276.691100007156,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-11",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. The HelpDeskly Analytics Add-on is a distinct need not covered by the existing HelpDeskly license and falls within the approved budget band.",
+    "next_step": "Submit the request to the Department Head and Procurement for final approval.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "HelpDeskly Analytics Add-on from HelpDeskly (Customer Support Analytics); annual cost $7,000 for 20 users; data access 'internal_documents'; requester Mia Thompson (E005), Customer Success",
+        "reference": "SYN-11"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Customer Success available software budget is $7,000; request of $7,000 is within budget ($0 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "HelpDeskly (Customer Support, HelpDeskly) is already Approved: 75 seats, scope Customer Success, $46,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW007"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase HelpDeskly on 2026-05-02: $46,000/yr, Approved (75 seats)",
+        "reference": "PO-2457"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V007"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-03-15, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/HelpDeskly"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for HelpDeskly is current: reviewed 2026-03-15 (199 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $7,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "HelpDeskly: distinct need. The catalog product HelpDeskly is a core ticketing system and does not provide the requested analytics add-on functionality for ticket trend analysis. The request is for a separate analytics capability that is not covered by the existing He",
+        "reference": "SW007"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.05539998528547585,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.013899989426136017,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.032899988582357764,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.005299982149153948,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 18.523800012189895,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.8416000055149198,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "412 chars",
+        "duration_ms": 4075.6219000031706,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "307 chars",
+        "duration_ms": 5017.640099977143,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-15",
+    "architecture": "staged",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. The request lacks a required annual cost estimate and overlaps with an existing approved DocSpace license, so clarification is needed.",
+    "next_step": "Ask the requester to provide a reasonable annual cost estimate for the add-on and confirm whether the requested seats are truly new or an expansion of the existing license.",
+    "required_approvals": [],
+    "risk_flags": [
+      "missing_information",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Annual cost or a reasonable annual estimate (annual_cost_usd is missing or invalid)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Add-on from DocSpace (Knowledge Management); annual cost not provided for 10 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-15"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: annual cost not provided",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "1 required item(s) missing or invalid: Annual cost or a reasonable annual estimate",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "DocSpace: expansion of existing. The catalog lists DocSpace (SW004) as an approved product with 200 licensed seats. The request is for an add-on of 10 additional seats for the finance knowledge base, which is a direct expansion of the existing license.",
+        "reference": "SW004"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "stage",
+        "name": "collect_evidence",
+        "detail": "fixed workflow, code-driven",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.21710002329200506,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, reason)",
+        "duration_ms": 0.08360002539120615,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.12740000966005027,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.02680000034160912,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 6.309699994744733,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.5157999985385686,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_1_evidence_analyst",
+        "detail": "overlap and injection analysis",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_1_evidence_analyst",
+        "detail": "382 chars",
+        "duration_ms": 5008.330999989994,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "recommendation and consistency review",
+        "duration_ms": 0.0,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_2_recommendation_reviewer",
+        "detail": "471 chars",
+        "duration_ms": 1860.411200003,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-01",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Review the existing tool before buying. Existing SignFlow license covers the requested signing credits for Finance.",
+    "next_step": "Finance should confirm no additional capacity is required and submit the request for standard approval.",
+    "required_approvals": [
+      "Manager"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Signing Credits from SignFlow (E-signature); annual cost $1,000 for 4 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-01"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $1,000 is within budget ($28,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $1,000 falls in the 'up to $1,000' band: minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "SignFlow: duplicate need. Catalog product SignFlow already provides e-signature capabilities for Finance and covers the requested signing credits.",
+        "reference": "SW010"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 7174.098999996204,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.24900000425986946,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 6021.85799999279,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.07939999341033399,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 5325.875999988057,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.1306000049225986,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.02509998739697039,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 7.361500000115484,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.27379998937249184,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 8595.702299993718,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "507 chars",
+        "duration_ms": 12688.321499997983,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REVIEW_EXISTING_TOOL",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-02",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Review the existing tool before buying. Existing SignFlow license covers the requested signing credits.",
+    "next_step": "Finance should confirm the need aligns with current license usage and Procurement should proceed with standard approval chain.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "SignFlow Signing Credits from SignFlow (E-signature); annual cost $1,000.01 for 4 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-02"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $1,000.01 is within budget ($27,999.99 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow (E-signature, SignFlow) is already Approved: 45 seats, scope Company-wide, $16,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW010"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase SignFlow on 2026-07-04: $16,000/yr, Approved (Company-wide agreement)",
+        "reference": "PO-2513"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-06-20, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for SignFlow is current: reviewed 2026-06-20 (102 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $1,000.01 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "SignFlow: duplicate need. Catalog product SignFlow already provides the required signing credits for vendor agreements.",
+        "reference": "SW010"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 5557.9896999988705,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.089899986051023,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 7759.942299977411,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.205100019229576,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 4138.708899990888,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.14089999604038894,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.028600014047697186,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 6.12050000927411,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.2651000104378909,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 14290.124199993443,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "491 chars",
+        "duration_ms": 11565.80449998728,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REVIEW_EXISTING_TOOL",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-03",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. BrandBoard Starter is not in catalog; existing tools cover design needs partially.",
+    "next_step": "Security, Legal, and Procurement must review vendor and contract details.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "legal_review_required"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "BrandBoard Starter from BrandBoard (Design & Creative); annual cost $10,000 for 10 users; data access 'internal_marketing'; requester Sarah Lee (E001), Marketing",
+        "reference": "SYN-03"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Marketing available software budget is $15,000; request of $10,000 is within budget ($5,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "PixelCraft Pro (Design & Creative, PixelCraft) is already Approved: 65 seats, scope Company-wide, $32,000/yr; match on same category; covers the requester's department",
+        "reference": "SW001"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CreativeSuite (Design & Creative, CreativeSuite Labs) is already Approved: 40 seats, scope Marketing, $27,000/yr; match on same category; covers the requester's department",
+        "reference": "SW002"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status New, security Pending, legal terms Draft",
+        "reference": "V011"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk medium, review status not_completed, last review none, processes personal data True, stores data outside region False; note: Vendor onboarding incomplete.",
+        "reference": "GET /vendor-risk/BrandBoard"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security assessment for BrandBoard is not completed (service status 'not_completed', no current review date)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $10,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is missing or not completed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Legal review required: new vendor with annual spend of $10,000 (threshold $10,000); legal terms are not approved/standard (registry status 'Draft')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "PixelCraft Pro: partial overlap. PixelCraft Pro is a design tool but not the same product as BrandBoard Starter.",
+        "reference": "SW001"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "CreativeSuite: partial overlap. CreativeSuite offers design capabilities but does not match BrandBoard Starter.",
+        "reference": "SW002"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 6910.87079999852,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.5206000059843063,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 5781.46050000214,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.04119999357499182,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "requested tools: search_software_catalog",
+        "duration_ms": 5218.375500000548,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.04110002191737294,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_4",
+        "detail": "0 chars",
+        "duration_ms": 5532.709999999497,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.046200002543628216,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 15.589300019200891,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.18770000315271318,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "584 chars",
+        "duration_ms": 7972.830499988049,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-04",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Review the existing tool before buying. MetricLoop already provides finance reporting, so no new purchase needed.",
+    "next_step": "Finance should confirm that MetricLoop meets variance analysis needs; if not, consider add-on.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $25,000 for 12 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-04"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $25,000 is within budget ($4,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-05-10, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2026-05-10 (143 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $25,000 falls in the '$10,000.01 to $25,000' band: minimum approvals Department Head + Finance + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: duplicate need. Existing MetricLoop product covers finance reporting and variance analysis.",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 713.812300004065,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.06330001633614302,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 7578.170699998736,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.03709999145939946,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 3480.192699993495,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.12579999747686088,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.013399985618889332,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 24.88339997944422,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.5239999736659229,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 10233.863599976758,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "451 chars",
+        "duration_ms": 12371.553299977677,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REVIEW_EXISTING_TOOL",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-05",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Review the existing tool before buying. MetricLoop already licensed company-wide, covering Finance\u2019s reporting needs.",
+    "next_step": "Finance should confirm that the existing MetricLoop license suffices; Procurement can proceed with approvals if no gaps are identified.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "CFO"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $25,001 for 12 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-05"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $25,001 is within budget ($3,999 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-05-10, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2026-05-10 (143 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $25,001 falls in the 'above $25,000' band: minimum approvals Department Head + Finance + CFO + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: duplicate need. Catalog product MetricLoop is same vendor, same product family, company-wide scope, and covers Finance department.",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 6235.509499994805,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.20750000840052962,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 9327.378999994835,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.027400004910305142,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 3586.1277999938466,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.05119998240843415,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.00869997893460095,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 2.3635999823454767,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.16920000780373812,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 9830.613999976777,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "535 chars",
+        "duration_ms": 11887.377800012473,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REVIEW_EXISTING_TOOL",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-06",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. MetricLoop already licensed company-wide, covering finance reporting needs.",
+    "next_step": "Finance should confirm that the existing MetricLoop license satisfies the add-on requirement and forward the request to Procurement for final approval.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $5,000 for 6 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-06"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $5,000 is within budget ($24,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2025-09-30, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop is current: reviewed 2025-09-30 (365 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $5,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: expansion of existing. The request seeks a finance add-on, but the company already licenses MetricLoop with sufficient seats and scope.",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 6581.844700005604,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.11550000635907054,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 4665.438600000925,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.037699996028095484,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 4917.575200001011,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.15059998258948326,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.02750000567175448,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.11240001185797155,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.6298999942373484,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 7573.455199977616,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "554 chars",
+        "duration_ms": 12494.821500004036,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-07",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Route for required reviews before approval. MetricLoop Finance Add-on request duplicates existing MetricLoop product, which already covers Finance reporting needs.",
+    "next_step": "Finance should submit the request to Procurement and Security for review, citing the duplicate need and expired vendor security assessment.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security"
+    ],
+    "risk_flags": [
+      "existing_tool_overlap",
+      "security_review_required",
+      "vendor_review_expired"
+    ],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "MetricLoop Finance Add-on from MetricLoop (FinOps Reporting); annual cost $5,000 for 6 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-07"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance available software budget is $29,000; request of $5,000 is within budget ($24,000 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "MetricLoop (Analytics / BI, MetricLoop) is already Approved: 55 seats, scope Company-wide, $52,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW006"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V006"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2025-09-29, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/MetricLoop"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for MetricLoop dated 2025-09-29 is 366 days old at 2026-09-30; the 365-day validity has lapsed",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $5,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Security review required: vendor security assessment is expired",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "MetricLoop: duplicate need. Catalog product MetricLoop already provides finance reporting capabilities and covers the Finance department, matching the requested add-on.",
+        "reference": "SW006"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 5852.18720001285,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.16949998098425567,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 8482.599200011464,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 1.3451999984681606,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 5012.144799984526,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.05570001667365432,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.008700008038431406,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 0.04300000728107989,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.28670000028796494,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 8916.700900008436,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "604 chars",
+        "duration_ms": 11979.352900001686,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=ROUTE_FOR_REVIEWS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-10",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. DocSpace already provides the needed knowledge-management functionality, so the add-on request duplicates existing coverage.",
+    "next_step": "Request the missing requester identity and department, and confirm whether additional seats or features are truly required.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [
+      "missing_information",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Requester identity and department (requester_id not found in the employee directory)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Add-on from DocSpace (Knowledge Management); annual cost $2,000 for 10 users; data access 'internal_documents'; requester unknown requester 'E999'",
+        "reference": "SYN-10"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: department budget record not found",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "1 required item(s) missing or invalid: Requester identity and department",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $2,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "DocSpace: duplicate need. Catalog product DocSpace already covers internal knowledge base needs.",
+        "reference": "SW004"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 6036.108900007093,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.05150001379661262,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 5629.765499994392,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, reason)",
+        "duration_ms": 0.016699981642886996,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "requested tools: search_software_catalog",
+        "duration_ms": 4402.360199979739,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.03880000440403819,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_4",
+        "detail": "0 chars",
+        "duration_ms": 5734.665399999358,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.08540000999346375,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 6.131000001914799,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.39049997576512396,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "527 chars",
+        "duration_ms": 6962.451600003988,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-11",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Proceed with the standard approval chain. HelpDeskly Analytics Add-on is not covered by existing HelpDeskly license, requiring new purchase.",
+    "next_step": "The Procurement team should initiate the approval workflow with the Department Head and Procurement for the $7,000 request.",
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "risk_flags": [],
+    "missing_information": [],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "HelpDeskly Analytics Add-on from HelpDeskly (Customer Support Analytics); annual cost $7,000 for 20 users; data access 'internal_documents'; requester Mia Thompson (E005), Customer Success",
+        "reference": "SYN-11"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Customer Success available software budget is $7,000; request of $7,000 is within budget ($0 would remain). A positive budget check does not imply approval",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "HelpDeskly (Customer Support, HelpDeskly) is already Approved: 75 seats, scope Customer Success, $46,000/yr; match on same product family, same vendor; covers the requester's department",
+        "reference": "SW007"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Prior purchase HelpDeskly on 2026-05-02: $46,000/yr, Approved (75 seats)",
+        "reference": "PO-2457"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V007"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-03-15, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/HelpDeskly"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for HelpDeskly is current: reviewed 2026-03-15 (199 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "Annual amount $7,000 falls in the '$1,000.01 to $10,000' band: minimum approvals Department Head + Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "HelpDeskly: distinct need. Catalog product is HelpDeskly support ticketing only, lacking analytics add-on functionality.",
+        "reference": "SW007"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 710.5611999868415,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.13490000856108963,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 4916.110199992545,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, annual_cost_usd, remaining_usd, shortfall_usd)",
+        "duration_ms": 0.048200017772614956,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 6451.701200014213,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.07760000880807638,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.013100012438371778,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 4.733899986604229,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.48729998525232077,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 8493.98579998524,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "524 chars",
+        "duration_ms": 12802.914399973815,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=PROCEED_WITH_APPROVALS",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "case_id": "SYN-15",
+    "architecture": "single",
+    "repeat": 1,
+    "recommendation": "Request clarification from the requester. Request lacks annual cost; existing DocSpace license covers department, request likely expands seats.",
+    "next_step": "Finance should provide an annual cost estimate; procurement should confirm seat addition.",
+    "required_approvals": [],
+    "risk_flags": [
+      "missing_information",
+      "existing_tool_overlap"
+    ],
+    "missing_information": [
+      "Annual cost or a reasonable annual estimate (annual_cost_usd is missing or invalid)"
+    ],
+    "evidence": [
+      {
+        "source": "get_request_context",
+        "finding": "DocSpace Add-on from DocSpace (Knowledge Management); annual cost not provided for 10 users; data access 'internal_documents'; requester Noah Williams (E004), Finance",
+        "reference": "SYN-15"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Budget could not be verified: annual cost not provided",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "DocSpace (Knowledge Management, DocSpace) is already Approved: 200 seats, scope Company-wide, $24,000/yr; match on same product family, same category, same vendor; covers the requester's department",
+        "reference": "SW004"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry: procurement status Approved, security Approved, legal terms Approved",
+        "reference": "V004"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor-risk service: risk low, review status approved, last review 2026-02-24, processes personal data True, stores data outside region False; note: Current assessment.",
+        "reference": "GET /vendor-risk/DocSpace"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor assessment for DocSpace is current: reviewed 2026-02-24 (218 days before 2026-09-30), risk level low",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "apply_policy_rules",
+        "finding": "1 required item(s) missing or invalid: Annual cost or a reasonable annual estimate",
+        "reference": "Policy section 1"
+      },
+      {
+        "source": "llm_overlap_assessment",
+        "finding": "DocSpace: expansion of existing. Request adds seats to an already licensed DocSpace product that covers the requester department.",
+        "reference": "SW004"
+      }
+    ],
+    "trace": [
+      {
+        "kind": "llm",
+        "name": "agent_turn_1",
+        "detail": "requested tools: get_request_context",
+        "duration_ms": 5666.925199999241,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_request_context",
+        "detail": "ok (request, requester, missing_required_information, data_classes_detected)",
+        "duration_ms": 0.14139999984763563,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_2",
+        "detail": "requested tools: check_budget",
+        "duration_ms": 5587.363699974958,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "check_budget",
+        "detail": "ok (department, status, available_usd, reason)",
+        "duration_ms": 0.017699989257380366,
+        "ok": true
+      },
+      {
+        "kind": "llm",
+        "name": "agent_turn_3",
+        "detail": "0 chars",
+        "duration_ms": 4826.674699987052,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "search_software_catalog (forced by guard)",
+        "detail": "ok (matches, vendor_purchase_history)",
+        "duration_ms": 0.1354999840259552,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_registry (forced by guard)",
+        "detail": "ok (found, procurement_status, security_status, security_review_date, legal_terms_status, notes)",
+        "duration_ms": 0.02649999805726111,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "get_vendor_risk (forced by guard)",
+        "detail": "ok (status, risk_level, security_review_status, last_review_date, processes_personal_data, stores_data_outside_region)",
+        "duration_ms": 8.047499984968454,
+        "ok": true
+      },
+      {
+        "kind": "tool",
+        "name": "apply_policy_rules (forced by guard)",
+        "detail": "ok (required_approvals, risk_flags, missing_information, reviews_triggered, approval_band, budget)",
+        "duration_ms": 0.25099999038502574,
+        "ok": true
+      },
+      {
+        "kind": "guardrail",
+        "name": "coverage_guard",
+        "detail": "agent skipped: search_software_catalog, get_vendor_registry, get_vendor_risk, apply_policy_rules",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision",
+        "detail": "error: HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 7981.711500004167,
+        "ok": false
+      },
+      {
+        "kind": "guardrail",
+        "name": "final_call_repair",
+        "detail": "HTTP 400: tool_use_failed Tool choice is none, but model called a tool",
+        "duration_ms": 0.0,
+        "ok": false
+      },
+      {
+        "kind": "llm",
+        "name": "final_decision_repair",
+        "detail": "503 chars",
+        "duration_ms": 12272.82440001727,
+        "ok": true
+      },
+      {
+        "kind": "stage",
+        "name": "finalize",
+        "detail": "action=REQUEST_CLARIFICATION",
+        "duration_ms": 0.0,
+        "ok": true
+      }
+    ]
+  }
+]

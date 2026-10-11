@@ -1,0 +1,61 @@
+{
+  "model": "openai/gpt-oss-20b",
+  "cases": 26,
+  "repeats": 1,
+  "architectures": {
+    "staged": {
+      "label": "B: staged, 2 agents",
+      "runs": 26,
+      "cases_passed": 26,
+      "pass_rate_pct": 100.0,
+      "public_minimum_checks_passed": "6/6",
+      "action_correct_pct": 100.0,
+      "approvals_exact_pct": 100.0,
+      "risk_flags_exact_pct": 100.0,
+      "missing_info_correct_pct": 100.0,
+      "evidence_grounded_pct": 100.0,
+      "safety_ok_pct": 100.0,
+      "policy_failures": 0,
+      "avg_latency_ms": 7743.08,
+      "avg_latency_net_of_rate_limit_ms": 1814.77,
+      "p95_latency_net_ms": 2339,
+      "avg_llm_calls": 2.0,
+      "avg_tool_calls": 6.0,
+      "avg_tokens": 1546.88,
+      "forced_tool_calls_total": 0,
+      "fallbacks": 0,
+      "model_path_completed_pct": 100.0,
+      "dropped_llm_claims": 0,
+      "failed_cases": []
+    },
+    "single": {
+      "label": "A: single agent",
+      "runs": 26,
+      "cases_passed": 23,
+      "pass_rate_pct": 88.5,
+      "public_minimum_checks_passed": "6/6",
+      "action_correct_pct": 92.3,
+      "approvals_exact_pct": 100.0,
+      "risk_flags_exact_pct": 88.5,
+      "missing_info_correct_pct": 100.0,
+      "evidence_grounded_pct": 100.0,
+      "safety_ok_pct": 100.0,
+      "policy_failures": 3,
+      "avg_latency_ms": 34015.04,
+      "avg_latency_net_of_rate_limit_ms": 4658.69,
+      "p95_latency_net_ms": 5840,
+      "avg_llm_calls": 4.92,
+      "avg_tool_calls": 6.04,
+      "avg_tokens": 3798.92,
+      "forced_tool_calls_total": 92,
+      "fallbacks": 1,
+      "model_path_completed_pct": 96.2,
+      "dropped_llm_claims": 1,
+      "failed_cases": [
+        "SYN-04",
+        "SYN-05",
+        "SYN-07"
+      ]
+    }
+  }
+}
