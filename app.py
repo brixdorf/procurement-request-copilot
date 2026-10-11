@@ -241,9 +241,10 @@ def main() -> None:
                     and set(a.risk_flags) == set(b.risk_flags)
                     and results["single"].action == results["staged"].action
                 )
-                st.success("Both architectures agree on action, approvals and flags.") if same else st.warning(
-                    "The architectures differ on action, approvals or flags. Compare the traces."
-                )
+                if same:
+                    st.success("Both architectures agree on action, approvals and flags.")
+                else:
+                    st.warning("The architectures differ on action, approvals or flags. Compare the traces.")
         else:
             st.info("Press Run analysis to gather evidence and get a recommendation.")
 
